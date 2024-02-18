@@ -15,10 +15,6 @@ public class Board {
     @Column(name="board_id")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
-    private User user;
-
     @Column(length = 100)
     private String title;
 
