@@ -1,28 +1,25 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<table>
-    <thead>
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content" class="container my-3">
+<table class="table">
+    <thead class="table-dark">
         <tr>
+            <th>번호</th>
             <th>제목</th>
-            <th>작성일시</th>
+            <th>작성일</th>
         </tr>
     </thead>
     <tbody>
-        <tr th:each="board, index : ${boardList}">
+        <tr th:each="board, loop : ${boardList}">
+            <td th:text="${loop.count}"></td>
             <td>
                 <a th:href="@{|/board/detail/${board.id}|}"
                    th:text="${board.title}"></a>
             </td>
-            <td th:text="${board.regDate}"></td>
+            <td th:text="${#temporals.format(board.regDate, 'yyyy-MM-dd HH:mm')}"></td>
 
         </tr>
     </tbody>
 
-</table>
-</body>
+    </table>
+</div>
 </html>
