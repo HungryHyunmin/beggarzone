@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <thead>
+        <tr>
+            <th>제목</th>
+            <th>작성일시</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="board, index : ${boardList}">
+            <td>
+                <a th:href="@{|/board/detail/${board.id}|}"
+                   th:text="${board.title}"></a>
+            </td>
+            <td th:text="${board.regDate}"></td>
+
+        </tr>
+    </tbody>
+
+</table>
+</body>
+</html>

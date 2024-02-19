@@ -3,6 +3,7 @@ package beggar.beggarzone.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,7 +24,18 @@ public class Board {
 
     private LocalDateTime regDate;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Reply> replyList;
 
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", regDate=" + regDate +
+                ", replyList=" + replyList +
+                '}';
+    }
 }

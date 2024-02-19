@@ -24,20 +24,20 @@ class BeggarzoneApplicationTests {
 	@Autowired
 	ReplyRepository replyRepository;
 
-	@Test
+	/*@Test
 	void testJPA() {
 		Board b1 = new Board();
-		b1.setTitle("테스트 제목");
-		b1.setContent("테스트 내용");
+		b1.setTitle("총 지출 7000원");
+		b1.setContent("김밥4000+라면3000");
 		b1.setRegDate(LocalDateTime.now());
 		this.boardRepository.save(b1);
 
 		Board b2 = new Board();
-		b2.setTitle("제목22");
-		b2.setContent("내용22");
+		b2.setTitle("절약왕");
+		b2.setContent("저번달 대비 3만원 절약했습니다.");
 		b2.setRegDate(LocalDateTime.now());
 		this.boardRepository.save(b2);
-	}
+	}*/
 
 	/*@Test
 	void 보드찾기테스트() {
@@ -96,18 +96,18 @@ class BeggarzoneApplicationTests {
 		assertEquals(1, this.boardRepository.count());
 	}*/
 
-	@Test
+	/*@Test
 	void 답변저장(){
 		Optional<Board> ob = this.boardRepository.findById(2);
 		assertTrue(ob.isPresent());
 		Board b = ob.get();
 
 		Reply r = new Reply();
-		r.setContent("네 자동으로 생성됩니다.");
+		r.setContent("많이 안쓰셨네요");
 		r.setBoard(b); // 게시글 객체가 필요로 한다.
 		r.setRegDate(LocalDateTime.now());
 		this.replyRepository.save(r);
-	}
+	}*/
 
 	@Test
 	void 댓글조회(){
@@ -127,7 +127,7 @@ class BeggarzoneApplicationTests {
 		List<Reply> replyList = b.getReplyList();
 
 		assertEquals(1,replyList.size());
-		assertEquals("네 자동으로 생성됩니다.", replyList.get(0).getContent());
+		assertEquals("많이 안쓰셨네요", replyList.get(0).getContent());
 	}
 
 }

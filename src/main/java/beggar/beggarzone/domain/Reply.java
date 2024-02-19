@@ -19,6 +19,6 @@ public class Reply {
 
     private LocalDateTime regDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Board board;
 }
