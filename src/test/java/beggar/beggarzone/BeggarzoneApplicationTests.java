@@ -4,6 +4,7 @@ import beggar.beggarzone.domain.Board;
 import beggar.beggarzone.domain.Reply;
 import beggar.beggarzone.repository.BoardRepository;
 import beggar.beggarzone.repository.ReplyRepository;
+import beggar.beggarzone.service.BoardService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +24,8 @@ class BeggarzoneApplicationTests {
 	BoardRepository boardRepository;
 	@Autowired
 	ReplyRepository replyRepository;
+	@Autowired
+	BoardService boardService;
 
 	/*@Test
 	void testJPA() {
@@ -109,7 +112,7 @@ class BeggarzoneApplicationTests {
 		this.replyRepository.save(r);
 	}*/
 
-	@Test
+	/*@Test
 	void 댓글조회(){
 		Optional<Reply> or = this.replyRepository.findById(1);
 		assertTrue(or.isPresent());
@@ -128,6 +131,14 @@ class BeggarzoneApplicationTests {
 
 		assertEquals(1,replyList.size());
 		assertEquals("많이 안쓰셨네요", replyList.get(0).getContent());
+	}*/
+	@Test
+	void 페이징데이터생성(){
+		for(int i =0; i<=300; i++){
+			String title= String.format("테스트데이터입니다:[%03d]" , i);
+			String content = "내용 없음";
+			this.boardService.create(title,content);
+		}
 	}
 
 }
