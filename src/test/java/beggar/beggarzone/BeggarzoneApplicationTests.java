@@ -137,7 +137,7 @@ class BeggarzoneApplicationTests {
 		for(int i =0; i<=300; i++){
 			String title= String.format("테스트데이터입니다:[%03d]" , i);
 			String content = "내용 없음";
-			this.boardService.create(title,content);
+			this.boardService.create(title,content,null);
 		}
 	}
 

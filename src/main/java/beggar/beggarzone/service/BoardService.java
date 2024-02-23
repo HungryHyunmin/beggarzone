@@ -1,6 +1,7 @@
 package beggar.beggarzone.service;
 
 import beggar.beggarzone.domain.Board;
+import beggar.beggarzone.domain.SiteUser;
 import beggar.beggarzone.exception.DataNotFoundException;
 import beggar.beggarzone.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -43,11 +44,28 @@ public class BoardService {
         }
 
     }
-    public void create(String title, String content){ //게시글 등록
+    public void create(String title, String content, SiteUser user){ //게시글 등록
         Board b = new Board();
         b.setTitle(title);
         b.setContent(content);
         b.setRegDate(LocalDateTime.now());
+        b.setAuthor(user);
         this.boardRepository.save(b);
+    }
+
+    public void modify(Board board, String title , String content){
+        board.setTitle(title);
+        board.setContent(content);
+        board.setModifyDate(LocalDateTime.now());
+        this.boardRepository.save(board);
+    }
+
+    public void delete(Board board){
+        this.boardRepository.delete(board);
+    }
+
+    public void vote(Board board, SiteUser siteUser) { // 좋아요 누른 사람 이름 저장
+        board.getVoter().add(siteUser);
+        this.boardRepository.save(board);
     }
 }

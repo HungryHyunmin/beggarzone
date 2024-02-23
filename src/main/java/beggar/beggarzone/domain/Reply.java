@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Getter@Setter
@@ -21,4 +22,12 @@ public class Reply {
 
     @ManyToOne
     private Board board;
+
+    @ManyToOne
+    private SiteUser author;
+
+    private LocalDateTime modifyDate;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    Set<SiteUser> voter;
 }

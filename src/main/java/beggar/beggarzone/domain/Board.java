@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter @Setter
@@ -26,6 +27,14 @@ public class Board {
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Reply> replyList;
+
+    @ManyToOne
+    private SiteUser author;
+
+    private LocalDateTime modifyDate;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    Set<SiteUser> voter;
 
 
     @Override
