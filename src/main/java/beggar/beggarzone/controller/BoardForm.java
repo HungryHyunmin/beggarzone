@@ -1,5 +1,6 @@
 package beggar.beggarzone.controller;
 
+import beggar.beggarzone.domain.Category;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -14,4 +15,6 @@ public class BoardForm {
     private String title;
     @NotEmpty(message = "내용은 필수 입니다.")
     private String content;
+
+    private String category;
 }

@@ -1,6 +1,8 @@
 package beggar.beggarzone.service;
 
 import beggar.beggarzone.domain.Board;
+import beggar.beggarzone.domain.Category;
+import beggar.beggarzone.domain.Reply;
 import beggar.beggarzone.domain.SiteUser;
 import beggar.beggarzone.exception.DataNotFoundException;
 import beggar.beggarzone.repository.BoardRepository;
@@ -10,6 +12,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -25,12 +34,31 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
 
+    private Specification<Board> search(String kw) {
+        return new Specification<>() {
+            private static final long serialVersionUID = 1L;
+            @Override
+            public Predicate toPredicate(Root<Board> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                query.distinct(true);  // 중복을 제거
+                Join<Board, SiteUser> u1 = q.join("author", JoinType.LEFT);
+                Join<Board, Reply> a = q.join("replyList", JoinType.LEFT);
+                Join<Reply, SiteUser> u2 = a.join("author", JoinType.LEFT);
+                return cb.or(cb.like(q.get("title"), "%" + kw + "%"), // 제목
+                        cb.like(q.get("content"), "%" + kw + "%"),      // 내용
+                        cb.like(u1.get("username"), "%" + kw + "%"),    // 질문 작성자
+                        cb.like(a.get("content"), "%" + kw + "%"),      // 답변 내용
+                        cb.like(u2.get("username"), "%" + kw + "%"));   // 답변 작성자
+            }
+        };
+    }
 
-    public Page<Board> getList(int page){
+
+    public Page<Board> getList(int page, String kw){
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("regDate"));
         Pageable pageable = PageRequest.of(page,10,Sort.by(sorts));
-        return this.boardRepository.findAll(pageable);
+        Specification<Board> spec = search(kw);
+        return this.boardRepository.findAll(spec, pageable);
     }
 
 

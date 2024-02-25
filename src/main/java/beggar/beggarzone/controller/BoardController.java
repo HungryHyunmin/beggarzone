@@ -1,9 +1,11 @@
 package beggar.beggarzone.controller;
 
 import beggar.beggarzone.domain.Board;
+import beggar.beggarzone.domain.Category;
 import beggar.beggarzone.domain.SiteUser;
 import beggar.beggarzone.repository.BoardRepository;
 import beggar.beggarzone.service.BoardService;
+import beggar.beggarzone.service.CategoryService;
 import beggar.beggarzone.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,10 +30,13 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     private final UserService userService;
+    private final CategoryService categoryService;
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
-        Page<Board> paging = this.boardService.getList(page);
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+    @RequestParam(value = "kw",defaultValue = "") String kw) {
+        Page<Board> paging = this.boardService.getList(page,kw);
         model.addAttribute("paging",paging);
+        model.addAttribute("kw",kw);
     return "board_list";
 }
 
@@ -45,7 +50,10 @@ public class BoardController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
-    public String boardCreate(BoardForm boardForm){
+    public String boardCreate(Model model,BoardForm boardForm){
+
+        List<Category> categoryList=this.categoryService.getCategory(); // 글작성시 카테고리 리스트 불러오기
+        model.addAttribute("categoryList",categoryList);
         return "board_form";
     }
 

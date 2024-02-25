@@ -1,7 +1,8 @@
 <nav th:fragment="navbarFragment" class="navbar navbar-expand-lg navbar-light bg-light border-bottom"
      xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">거지존</a>
+  <div class="container-fluid" style="width:70%">
+    <a class="navbar-brand" href="/">
+      <img src="/img/b_logo.png" width="121" height="61" alt=""/></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -9,11 +10,17 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-          <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+          <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">
+            <img src="/img/btn_login.png" width="120" height="50" alt=""/>
+          </a>
+          <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">
+            <img src="/img/btn_logout.png" width="120" height="50" alt=""/>
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/user/signup}">회원가입</a>
+          <a class="nav-link" th:href="@{/user/signup}">
+            <img src="/img/btn_join.png" width="120" height="50" alt=""/>
+          </a>
         </li>
       </ul>
     </div>

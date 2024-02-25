@@ -36,6 +36,10 @@ public class Board {
     @ManyToMany(fetch = FetchType.EAGER)
     Set<SiteUser> voter;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="category_id")
+    private Category category;
+
 
     @Override
     public String toString() {
