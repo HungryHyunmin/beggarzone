@@ -10,11 +10,20 @@ import lombok.Setter;
 @Getter @Setter
 public class BoardForm {
 
+
     @NotEmpty(message="제목은 필수 입니다.")
     @Size(max=200)
     private String title;
     @NotEmpty(message = "내용은 필수 입니다.")
     private String content;
 
-    private String category;
+
+
+    @Override
+    public String toString() {
+        return "BoardForm{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

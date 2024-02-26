@@ -78,6 +78,7 @@ public class BoardService {
         b.setContent(content);
         b.setRegDate(LocalDateTime.now());
         b.setAuthor(user);
+        //b.setCategory(categoryName);
         this.boardRepository.save(b);
     }
 

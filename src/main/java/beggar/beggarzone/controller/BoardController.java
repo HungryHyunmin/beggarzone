@@ -64,6 +64,7 @@ public class BoardController {
             return "board_form";
         }
         SiteUser siteUser = this.userService.getUser(principal.getName());
+        System.out.println("-siteUser : " + siteUser);
         this.boardService.create(boardForm.getTitle(),boardForm.getContent(),siteUser);
         return "redirect:/board/list"; //저장후 목록으로 이동
     }

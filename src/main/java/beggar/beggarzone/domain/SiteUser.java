@@ -20,4 +20,13 @@ public class SiteUser {
     @Column(unique = true)
     private String email;
 
+    @Override
+    public String toString() {
+        return "SiteUser{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
