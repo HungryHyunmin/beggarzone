@@ -19,8 +19,8 @@ public class CategoryService {
         return this.categoryRepository.findAll();
     }
 
-    public Category getCategory(String id){
-        Optional<Category> category = this.categoryRepository.findById(Integer.valueOf(id));
+    public Category getCategory(Integer id){
+        Optional<Category> category = this.categoryRepository.findById(id);
         if(category.isPresent()){
             return  category.get();
         } else{

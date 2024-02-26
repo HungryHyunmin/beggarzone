@@ -72,12 +72,13 @@ public class BoardService {
         }
 
     }
-    public void create(String title, String content, SiteUser user){ //게시글 등록
+    public void create(String title, String content, SiteUser user,Category category){ //게시글 등록
         Board b = new Board();
         b.setTitle(title);
         b.setContent(content);
         b.setRegDate(LocalDateTime.now());
         b.setAuthor(user);
+        b.setCategory(category);
         //b.setCategory(categoryName);
         this.boardRepository.save(b);
     }

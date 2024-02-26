@@ -53,6 +53,7 @@ public class BoardController {
     public String boardCreate(Model model,BoardForm boardForm){
 
         List<Category> categoryList=this.categoryService.getCategory(); // 글작성시 카테고리 리스트 불러오기
+
         model.addAttribute("categoryList",categoryList);
         return "board_form";
     }
@@ -63,9 +64,11 @@ public class BoardController {
         if(bindingResult.hasErrors()){
             return "board_form";
         }
+        System.out.println("보드폼 "+ boardForm.toString());
         SiteUser siteUser = this.userService.getUser(principal.getName());
+        Category category = this.categoryService.getCategory(boardForm.getCategory().getId());
         System.out.println("-siteUser : " + siteUser);
-        this.boardService.create(boardForm.getTitle(),boardForm.getContent(),siteUser);
+        this.boardService.create(boardForm.getTitle(),boardForm.getContent(),siteUser,category);
         return "redirect:/board/list"; //저장후 목록으로 이동
     }
 
