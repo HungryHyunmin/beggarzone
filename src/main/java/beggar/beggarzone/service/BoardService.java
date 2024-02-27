@@ -1,5 +1,6 @@
 package beggar.beggarzone.service;
 
+import beggar.beggarzone.CommonUtil;
 import beggar.beggarzone.domain.Board;
 import beggar.beggarzone.domain.Category;
 import beggar.beggarzone.domain.Reply;
@@ -22,6 +23,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +40,7 @@ public class BoardService {
     private Specification<Board> search(String kw) {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
+
             @Override
             public Predicate toPredicate(Root<Board> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);  // 중복을 제거
@@ -53,26 +57,34 @@ public class BoardService {
     }
 
 
-    public Page<Board> getList(int page, String kw){
+    public Page<Board> getList(int page, String kw) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("regDate"));
-        Pageable pageable = PageRequest.of(page,10,Sort.by(sorts));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         Specification<Board> spec = search(kw);
         return this.boardRepository.findAll(spec, pageable);
     }
 
+    public Page<Board> getCategoryList(int page, Integer categoryid) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("regDate"));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+
+        return this.boardRepository.findByCategoryId(pageable, categoryid);
+    }
 
 
-    public Board getBoard(Integer id){
+    public Board getBoard(Integer id) {
         Optional<Board> board = this.boardRepository.findById(id);
-        if(board.isPresent()){
+        if (board.isPresent()) {
             return board.get();
-        }else {
+        } else {
             throw new DataNotFoundException("data not found");
         }
 
     }
-    public void create(String title, String content, SiteUser user,Category category){ //게시글 등록
+
+    public void create(String title, String content, SiteUser user, Category category) { //게시글 등록
         Board b = new Board();
         b.setTitle(title);
         b.setContent(content);
@@ -83,14 +95,14 @@ public class BoardService {
         this.boardRepository.save(b);
     }
 
-    public void modify(Board board, String title , String content){
+    public void modify(Board board, String title, String content) {
         board.setTitle(title);
         board.setContent(content);
         board.setModifyDate(LocalDateTime.now());
         this.boardRepository.save(board);
     }
 
-    public void delete(Board board){
+    public void delete(Board board) {
         this.boardRepository.delete(board);
     }
 
@@ -98,4 +110,6 @@ public class BoardService {
         board.getVoter().add(siteUser);
         this.boardRepository.save(board);
     }
+
+
 }

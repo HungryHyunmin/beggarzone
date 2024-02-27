@@ -1,8 +1,18 @@
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content" class="container my-3" style="width:60%">
+
+
+    <a href="/board/list"><button  class="btn btn-primary"> 전체보기</button></a>
+    <a href="/board/list/1"><button  class="btn btn-primary"> 10대</button></a>
+    <a href="/board/list/2"><button class="btn btn-primary"> 20대</button></a>
+    <a href="/board/list/3"><button class="btn btn-primary"> 30대</button></a>
+    <a href="/board/list/4"><button class="btn btn-primary"> 40대</button></a>
+    <a href="/board/list/5"><button class="btn btn-primary"> 50대</button></a>
+
+
     <div class="row my-3">
         <div class="col-6">
-            <a th:href="@{/board/create}" class="btn btn-primary">글쓰기</a>
+            <a th:href="@{/board/create}" class="btn btn-success">글쓰기</a>
         </div>
         <div class="col-6">
             <div class="input-group">
@@ -16,6 +26,7 @@
         <tr class="text-center">
             <th>번호</th>
             <th style="width:50%">제목</th>
+            <th>추천</th>
             <th>글쓴이</th>
             <th>작성일</th>
         </tr>
@@ -26,14 +37,18 @@
             <td class="text-start">
                 <a th:href="@{|/board/detail/${board.id}|}"
                    th:text="${board.title}"></a>
+                <img src="/img/rely.png" width="15" height="15">
                 <span class="text-danger small ms-2"
                       th:if="${#lists.size(board.replyList) > 0}"
                       th:text="${#lists.size(board.replyList)}">
                 </span>
             </td>
+            <td><img src="/img/good.png" width="12" height="12">
+                <span th:text="${board.voter.size()}"></span></td>
             <td><span th:if="${board.author != null}" th:text="${board.author.username}"></span></td>
             <td th:text="${#temporals.format(board.regDate, 'yyyy-MM-dd HH:mm')}">
-               <span class="text-danger small ms-2"
+
+                <span class="text-danger small ms-2"
                      th:if="${#lists.size(board.replyList) > 0}"
                      th:text="${#lists.size(board.replyList)}">
                 </span>

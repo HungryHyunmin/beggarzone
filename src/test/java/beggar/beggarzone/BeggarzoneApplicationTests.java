@@ -132,13 +132,13 @@ class BeggarzoneApplicationTests {
 		assertEquals(1,replyList.size());
 		assertEquals("많이 안쓰셨네요", replyList.get(0).getContent());
 	}*/
-	@Test
+	/*@Test
 	void 페이징데이터생성(){
 		for(int i =0; i<=300; i++){
 			String title= String.format("테스트데이터입니다:[%03d]" , i);
 			String content = "내용 없음";
 			this.boardService.create(title,content,null);
 		}
-	}
+	}*/
 
 }

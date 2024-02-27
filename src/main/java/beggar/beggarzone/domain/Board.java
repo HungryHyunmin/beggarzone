@@ -1,5 +1,6 @@
 package beggar.beggarzone.domain;
 
+import beggar.beggarzone.CommonUtil;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,6 +40,8 @@ public class Board {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="category_id")
     private Category category;
+
+
 
 
     @Override

@@ -35,10 +35,20 @@ public class BoardController {
     public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
     @RequestParam(value = "kw",defaultValue = "") String kw) {
         Page<Board> paging = this.boardService.getList(page,kw);
+
         model.addAttribute("paging",paging);
         model.addAttribute("kw",kw);
     return "board_list";
 }
+    @GetMapping(value = "/list/{categoryId}") //카테고리
+    public String categoryList(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+                               @PathVariable(name = "categoryId") Integer categoryId){
+        Page<Board> paging = this.boardService.getCategoryList(page,categoryId);
+        model.addAttribute("paging",paging);
+        return "board_category";
+    }
+
+
 
 @GetMapping(value="/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id, ReplyForm replyForm) {

@@ -17,5 +17,7 @@ public interface BoardRepository extends JpaRepository<Board,Integer> {
 
     Page<Board> findAll(Specification<Board> spec, Pageable pageable);
 
+    Page<Board> findByCategoryId(Pageable pageable,Integer categoryId);
+
 
 }
