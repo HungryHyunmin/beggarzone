@@ -16,12 +16,12 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="board_id")
-    private Integer id;
+    private Long id;
 
-    @Column(length = 100)
+    @Column(length = 100) //varchar(100) 기본값 255
     private String title;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT") //TEXT 타입 ->
     private String content;
 
     private LocalDateTime regDate;
