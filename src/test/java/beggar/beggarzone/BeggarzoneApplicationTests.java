@@ -1,12 +1,15 @@
 package beggar.beggarzone;
 
 import beggar.beggarzone.domain.Board;
+import beggar.beggarzone.domain.Category;
 import beggar.beggarzone.domain.Reply;
 import beggar.beggarzone.repository.BoardRepository;
+import beggar.beggarzone.repository.CategoryRepository;
 import beggar.beggarzone.repository.ReplyRepository;
 import beggar.beggarzone.service.BoardService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.cache.CacheType;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +28,14 @@ class BeggarzoneApplicationTests {
 	@Autowired
 	ReplyRepository replyRepository;
 	@Autowired
+	CategoryRepository categoryRepository;
+	@Autowired
 	BoardService boardService;
+
+
+
+
+
 
 	/*@Test
 	void testJPA() {
@@ -41,6 +51,7 @@ class BeggarzoneApplicationTests {
 		b2.setRegDate(LocalDateTime.now());
 		this.boardRepository.save(b2);
 	}*/
+
 
 	/*@Test
 	void 보드찾기테스트() {
@@ -99,6 +110,21 @@ class BeggarzoneApplicationTests {
 		assertEquals(1, this.boardRepository.count());
 	}*/
 
+	@Test
+	void 게시판넣기(){
+		Optional<Category> oc = this.categoryRepository.findById(1);
+		assertTrue(oc.isPresent());
+		Category c = oc.get();
+
+		Board b = new Board();
+		b.setCategory(c);
+		b.setTitle("카테고리 테스트");
+		b.setContent("카테고리 내용");
+		b.setRegDate(LocalDateTime.now());
+		b.setModifyDate(LocalDateTime.now());
+		this.boardRepository.save(b);
+	}
+
 	/*@Test
 	void 답변저장(){
 		Optional<Board> ob = this.boardRepository.findById(2);
@@ -131,7 +157,7 @@ class BeggarzoneApplicationTests {
 
 		assertEquals(1,replyList.size());
 		assertEquals("많이 안쓰셨네요", replyList.get(0).getContent());
-	}*/
+	}
 	/*@Test
 	void 페이징데이터생성(){
 		for(int i =0; i<=300; i++){

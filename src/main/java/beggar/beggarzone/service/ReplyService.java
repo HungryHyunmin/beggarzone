@@ -15,10 +15,12 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class ReplyService {
     private final ReplyRepository replyRepository;
 
-    public Reply create(Board board, String content, SiteUser author){
+    @Transactional
+    public Reply create(Board board, String content, SiteUser author){ //답글 생성
         Reply reply = new Reply();
         reply.setContent(content);
         reply.setRegDate(LocalDateTime.now());
@@ -36,12 +38,14 @@ public class ReplyService {
             throw new DataNotFoundException("answer not found");
         }
     }
+    @Transactional
     public void Modify(Reply reply,String content){
         reply.setContent(content);
         reply.setModifyDate(LocalDateTime.now());
         this.replyRepository.save(reply);
     }
 
+    @Transactional
     public void delete(Reply reply) {
         this.replyRepository.delete(reply);
     }

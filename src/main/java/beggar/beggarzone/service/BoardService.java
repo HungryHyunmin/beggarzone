@@ -32,6 +32,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class BoardService {
 
     private final BoardRepository boardRepository;
@@ -84,6 +85,7 @@ public class BoardService {
 
     }
 
+    @Transactional
     public void create(String title, String content, SiteUser user, Category category) { //게시글 등록
         Board b = new Board();
         b.setTitle(title);
@@ -95,17 +97,21 @@ public class BoardService {
         this.boardRepository.save(b);
     }
 
+    @Transactional
     public void modify(Board board, String title, String content) {
         board.setTitle(title);
         board.setContent(content);
         board.setModifyDate(LocalDateTime.now());
+        
         this.boardRepository.save(board);
     }
 
+    @Transactional
     public void delete(Board board) {
         this.boardRepository.delete(board);
     }
 
+    @Transactional
     public void vote(Board board, SiteUser siteUser) { // 좋아요 누른 사람 이름 저장
         board.getVoter().add(siteUser);
         this.boardRepository.save(board);

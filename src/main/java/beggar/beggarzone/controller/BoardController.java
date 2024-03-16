@@ -91,6 +91,7 @@ public class BoardController {
         }
         boardForm.setTitle(board.getTitle());
         boardForm.setContent(board.getContent());
+
         return "board_form";
     }
     @PreAuthorize("isAuthenticated()")

@@ -9,4 +9,6 @@ public interface UserRepository extends JpaRepository<SiteUser,Long> { //siteuse
 
 
     Optional<SiteUser> findByUsername(String username);
+
+
 }
