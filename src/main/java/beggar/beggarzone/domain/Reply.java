@@ -20,7 +20,7 @@ public class Reply {
 
     private LocalDateTime regDate;
 
-    @ManyToOne
+    @ManyToOne //joincolum 사용안하면 디폴트 전략으로 외래키인 board_id 자동 지어
     private Board board;
 
     @ManyToOne
@@ -29,5 +29,6 @@ public class Reply {
     private LocalDateTime modifyDate;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    //@다대다를 설정하면 새로운 테이블을 만들어(Reply_Voter) 관리한다
     Set<SiteUser> voter;
 }

@@ -27,10 +27,10 @@ public class Board {
     private LocalDateTime regDate;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    private List<Reply> replyList;
+    private List<Reply> replyList; // 다대일 양방향
 
     @ManyToOne
-    private SiteUser author;
+    private SiteUser author; // 다대일 단방향
 
     private LocalDateTime modifyDate;
 
