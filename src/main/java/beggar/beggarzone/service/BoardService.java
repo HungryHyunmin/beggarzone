@@ -58,7 +58,7 @@ public class BoardService {
     }*/
 
 
-    public Page<Board> getList(int page, String kw) {
+    public Page<Board> getList(int page, String kw) { //page:페이지  ,검색어
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("regDate"));
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));

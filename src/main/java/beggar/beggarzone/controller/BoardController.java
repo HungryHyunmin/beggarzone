@@ -45,6 +45,7 @@ public class BoardController {
     public String categoryList(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
                                @PathVariable(name = "categoryId") Integer categoryId){
         Page<Board> paging = this.boardService.getCategoryList(page,categoryId);
+
         model.addAttribute("paging",paging);
         return "board_category";
     }
