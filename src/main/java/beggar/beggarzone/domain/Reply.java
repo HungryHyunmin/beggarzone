@@ -28,7 +28,7 @@ public class Reply {
 
     private LocalDateTime modifyDate;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     //@다대다를 설정하면 새로운 테이블을 만들어(Reply_Voter) 관리한다
     Set<SiteUser> voter;
 }

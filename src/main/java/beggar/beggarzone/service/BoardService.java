@@ -38,33 +38,36 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
 
-    private Specification<Board> search(String kw) {
+    /*private Specification<Board> search(String kw) { //Sepecifation을 활용한 검색방법
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Predicate toPredicate(Root<Board> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
+            public Predicate toPredicate(Root<Board> b, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);  // 중복을 제거
-                Join<Board, SiteUser> u1 = q.join("author", JoinType.LEFT);
-                Join<Board, Reply> a = q.join("replyList", JoinType.LEFT);
-                Join<Reply, SiteUser> u2 = a.join("author", JoinType.LEFT);
-                return cb.or(cb.like(q.get("title"), "%" + kw + "%"), // 제목
-                        cb.like(q.get("content"), "%" + kw + "%"),      // 내용
+                Join<Board, SiteUser> u1 = b.join("author", JoinType.LEFT);
+                Join<Board, Reply> r = b.join("replyList", JoinType.LEFT);
+                Join<Reply, SiteUser> u2 = r.join("author", JoinType.LEFT);
+                return cb.or(cb.like(b.get("title"), "%" + kw + "%"), // 제목
+                        cb.like(b.get("content"), "%" + kw + "%"),      // 내용
                         cb.like(u1.get("username"), "%" + kw + "%"),    // 질문 작성자
-                        cb.like(a.get("content"), "%" + kw + "%"),      // 답변 내용
+                        cb.like(r.get("content"), "%" + kw + "%"),      // 답변 내용
                         cb.like(u2.get("username"), "%" + kw + "%"));   // 답변 작성자
             }
         };
-    }
+    }*/
 
 
     public Page<Board> getList(int page, String kw) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("regDate"));
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-        Specification<Board> spec = search(kw);
-        return this.boardRepository.findAll(spec, pageable);
+
+        /*Specification<Board> spec = search(kw); //검색방법 1.Specification
+        return this.boardRepository.findAll(spec, pageable);*/ //게시물 10개 리턴
+        return this.boardRepository.findAllByKeyword(kw, pageable);
     }
+
 
     public Page<Board> getCategoryList(int page, Integer categoryid) {
         List<Sort.Order> sorts = new ArrayList<>();

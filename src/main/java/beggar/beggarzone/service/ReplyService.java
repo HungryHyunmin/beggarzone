@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-@Transactional(readOnly = true)
+@Transactional(readOnly = true) // ReplyService에 있는 메서드에 각각 작용
 public class ReplyService {
     private final ReplyRepository replyRepository;
 

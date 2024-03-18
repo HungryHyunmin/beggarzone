@@ -33,7 +33,7 @@ public class UserService {
         Optional<SiteUser> user = userRepository.findById(id);
         if(user.isPresent()) {
             SiteUser user1 = user.get();
-            user1.setUsername(username);
+            user1.setUsername(username); //변경감지
             user1.setPassword(passwordEncoder.encode(password));
             user1.setEmail(email);
         }

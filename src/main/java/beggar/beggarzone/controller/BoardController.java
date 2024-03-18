@@ -40,6 +40,7 @@ public class BoardController {
         model.addAttribute("kw",kw);
     return "board_list";
 }
+
     @GetMapping(value = "/list/{categoryId}") //카테고리
     public String categoryList(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
                                @PathVariable(name = "categoryId") Integer categoryId){

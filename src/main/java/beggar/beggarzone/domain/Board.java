@@ -34,10 +34,10 @@ public class Board {
 
     private LocalDateTime modifyDate;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     Set<SiteUser> voter;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="category_id")
     private Category category;
 
