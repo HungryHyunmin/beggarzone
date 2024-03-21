@@ -68,6 +68,10 @@ public class BoardService {
         return this.boardRepository.findAllByKeyword(kw, pageable);
     }
 
+    public List<Board> getAllList(){
+        return this.boardRepository.findAll();
+    }
+
 
     public Page<Board> getCategoryList(int page, Integer categoryid) {
         List<Sort.Order> sorts = new ArrayList<>();
