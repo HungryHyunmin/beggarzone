@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -18,11 +19,11 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public SiteUser create(String username, String email, String password){
+    public SiteUser create(String username, String email, String password) {
         SiteUser user = new SiteUser();
         user.setUsername(username);
         user.setEmail(email);
-       /* BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); // 암호화 코드*/
+        /* BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); // 암호화 코드*/
         user.setPassword(passwordEncoder.encode(password)); // securityconfig에 객체 주입함(bean)
         this.userRepository.save(user);
         return user;
@@ -31,33 +32,36 @@ public class UserService {
     @Transactional
     public void update(Long id, String username, String password, String email) {
         Optional<SiteUser> user = userRepository.findById(id);
-        if(user.isPresent()) {
+        if (user.isPresent()) {
             SiteUser user1 = user.get();
             user1.setUsername(username); //변경감지
             user1.setPassword(passwordEncoder.encode(password));
             user1.setEmail(email);
-        }
-        else {
+        } else {
             throw new DataNotFoundException("siteuser not found");
         }
     }
 
-    public SiteUser getUser(String username){
+    public SiteUser getUser(String username) {
         Optional<SiteUser> siteUser = this.userRepository.findByUsername(username);
-        if(siteUser.isPresent()){
-            return  siteUser.get();
-        } else{
+        if (siteUser.isPresent()) {
+            return siteUser.get();
+        } else {
             throw new DataNotFoundException("siteuser not found");
         }
     }
 
     public SiteUser findOne(Long id) {
         Optional<SiteUser> siteUser = userRepository.findById(id);
-        if(siteUser.isPresent()){
-            return  siteUser.get();
-        } else{
+        if (siteUser.isPresent()) {
+            return siteUser.get();
+        } else {
             throw new DataNotFoundException("siteuser not found");
         }
     }
 
+    public List<SiteUser> findAll() {
+        return userRepository.findAll();
+    }
 }
+

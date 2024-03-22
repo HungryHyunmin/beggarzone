@@ -1,10 +1,7 @@
 package beggar.beggarzone.service;
 
 import beggar.beggarzone.CommonUtil;
-import beggar.beggarzone.domain.Board;
-import beggar.beggarzone.domain.Category;
-import beggar.beggarzone.domain.Reply;
-import beggar.beggarzone.domain.SiteUser;
+import beggar.beggarzone.domain.*;
 import beggar.beggarzone.exception.DataNotFoundException;
 import beggar.beggarzone.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
