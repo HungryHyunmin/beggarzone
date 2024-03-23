@@ -165,14 +165,13 @@ class BeggarzoneApplicationTests {
 	void 페이징데이터생성() {
 
 		SiteUser u = new SiteUser();
-		u.setUsername("길동님");
-		u.setId(8L);
-		u.setEmail("gusals5@gmail.com");
-		u.setPassword("12344");
+		u.setUsername("길동님7");
+		u.setEmail("gusals5123@gmail.com");
+		u.setPassword("1234231234");
 		this.userRepository.save(u);
 
 
-		for (int i = 0; i <= 100; i++) {
+		for (int i = 0; i <= 300; i++) {
 
 			String title = String.format("소비 내역 : [%03d일차]", i);
 			String content = "내용 없음";

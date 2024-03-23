@@ -6,6 +6,7 @@ import beggar.beggarzone.domain.SiteUser;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 public class ReplyDto {
@@ -16,13 +17,13 @@ public class ReplyDto {
     private LocalDateTime modifyDate;
     private String replyUsername;
 
-
     public ReplyDto(Reply reply){
         id= reply.getId();
         content = reply.getContent();
         regDate = reply.getRegDate();
         replyUsername = reply.getAuthor().getUsername();
         modifyDate = reply.getModifyDate();
+
     }
 
 }

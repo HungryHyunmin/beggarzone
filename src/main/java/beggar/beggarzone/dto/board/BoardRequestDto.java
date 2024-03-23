@@ -20,15 +20,17 @@ public class BoardRequestDto {
     private Long id;
     private String title;
     private String content;
+    private String name;
     private LocalDateTime regDate;
     private LocalDateTime modifyDate;
-
     private List<ReplyDto> replyList;
+
 
 
     public BoardRequestDto(Board board) {
         id =board.getId();
         title=board.getTitle();
+        name =board.getAuthor().getUsername();
         content=board.getContent();
         regDate=board.getRegDate();
         modifyDate=board.getModifyDate();

@@ -29,15 +29,15 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Reply> replyList; // 다대일 양방향
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private SiteUser author; // 다대일 단방향
 
     private LocalDateTime modifyDate;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     Set<SiteUser> voter;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="category_id")
     private Category category;
 

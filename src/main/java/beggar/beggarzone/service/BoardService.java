@@ -57,13 +57,14 @@ public class BoardService {
 
     public Page<Board> getList(int page, String kw) { //page:페이지  ,검색어
         List<Sort.Order> sorts = new ArrayList<>();
-        sorts.add(Sort.Order.desc("regDate"));
+        sorts.add(Sort.Order.desc("regDate"));//등록일 순 정렬
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
 
         /*Specification<Board> spec = search(kw); //검색방법 1.Specification
         return this.boardRepository.findAll(spec, pageable);*/ //게시물 10개 리턴
         return this.boardRepository.findAllByKeyword(kw, pageable);
     }
+
 
     public List<Board> getAllList(){
         return this.boardRepository.findAll();
