@@ -55,14 +55,20 @@ public class BoardService {
     }*/
 
 
-    public Page<Board> getList(int page, String kw) { //page:페이지  ,검색어
+    public Page<Board> getList(int page, String kw, String type) { //page:페이지  ,검색어
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("regDate"));//등록일 순 정렬
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
 
         /*Specification<Board> spec = search(kw); //검색방법 1.Specification
         return this.boardRepository.findAll(spec, pageable);*/ //게시물 10개 리턴
-        return this.boardRepository.findAllByKeyword(kw, pageable);
+       if(type.equals("ct"))
+           return this.boardRepository.findByKeywordAndContentAndTitle(kw, pageable);
+       else if (type.equals("author")){
+           return this.boardRepository.findByKeywordAndAuthor(kw,pageable);
+       }else{
+           return this.boardRepository.findAll(pageable);
+       }
     }
 
 

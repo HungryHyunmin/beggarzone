@@ -26,15 +26,18 @@ public interface BoardRepository extends JpaRepository<Board,Integer> {
     @Query("select "
             + "distinct b "
             + "from Board b "
-            + "left outer join SiteUser u1 on b.author=u1 "
-            + "left outer join Reply r on r.board=b "
-            + "left outer join SiteUser u2 on r.author=u2 "
             + "where "
             + "   b.title like %:kw% " //게시판 제목
             + "   or b.content like %:kw% " //게시판 내용
-            + "   or u1.username like %:kw% " //게시판 작성자
-            + "   or r.content like %:kw% " //댓글에 내용
-            + "   or u2.username like %:kw% ") //댓글에 작성자
-    Page<Board> findAllByKeyword(@Param("kw") String kw, Pageable pageable);
+            ) //댓글에 작성자
+    Page<Board> findByKeywordAndContentAndTitle(@Param("kw") String kw, Pageable pageable);// 내용+제목
 
+    @Query("select "
+            + "distinct b "
+            + " from Board b "
+            + " left outer join SiteUser u1 on b.author=u1 "
+            + " where "
+            + " u1.username like %:kw% "
+            )
+    Page<Board> findByKeywordAndAuthor(@Param("kw") String kw,Pageable pageable); //작성자
 }
