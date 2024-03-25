@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -36,7 +37,7 @@ public class Board {
     Set<SiteUser> voter;
 
   @OneToMany(mappedBy = "board" ,cascade = CascadeType.ALL, orphanRemoval = true )
-   private  List<BoardHashtag> boardHashtags;
+   private  List<BoardHashtag> boardHashtags = new ArrayList<>();
 
 
 

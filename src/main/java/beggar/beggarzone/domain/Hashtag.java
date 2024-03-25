@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -18,7 +19,7 @@ public class Hashtag {
     private String tagName;
 
     @OneToMany(mappedBy = "hashtag", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BoardHashtag> boardHashtags;
+    private List<BoardHashtag> boardHashtags = new ArrayList<>();
 
     @Builder
     public Hashtag(String tagName) {

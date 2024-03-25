@@ -8,6 +8,7 @@ import beggar.beggarzone.domain.SiteUser;
 import beggar.beggarzone.repository.BoardRepository;
 import beggar.beggarzone.repository.ReplyRepository;
 import beggar.beggarzone.repository.UserRepository;
+import beggar.beggarzone.service.BoardHashtagService;
 import beggar.beggarzone.service.BoardService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,8 @@ class BeggarzoneApplicationTests {
 
 	@Autowired
 	BoardService boardService;
-
+	@Autowired
+	BoardHashtagService boardHashtagService;
 
 	@Test
 	void testJPA() {
@@ -113,9 +115,25 @@ class BeggarzoneApplicationTests {
 	@Test
 	void 게시판넣기() {
 
-		List<String> list = Arrays.asList("10대","학생");
+		List<String> list = Arrays.asList("10대","중학생","짠돌이");
 
-		Board b= new Board();
+
+		SiteUser user= new SiteUser();
+		user.setEmail("gusa1879@n3aver2.com");
+		user.setPassword("1212224");
+		user.setUsername("김개똥2232");
+		this.userRepository.save(user);
+
+		Board b = new Board();
+		b.setTitle("지출내역");
+		b.setContent("지출");
+		b.setRegDate(LocalDateTime.now());
+		b.setAuthor(user);
+
+
+		Board savedBoard = boardRepository.save(b);
+		boardHashtagService.saveHashtag(savedBoard,list);
+
 
 
 
