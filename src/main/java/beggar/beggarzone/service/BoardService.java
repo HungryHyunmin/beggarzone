@@ -1,6 +1,6 @@
 package beggar.beggarzone.service;
 
-import beggar.beggarzone.CommonUtil;
+import beggar.beggarzone.controller.BoardForm;
 import beggar.beggarzone.domain.*;
 import beggar.beggarzone.exception.DataNotFoundException;
 import beggar.beggarzone.repository.BoardRepository;
@@ -10,18 +10,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.JoinType;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +24,7 @@ import java.util.Optional;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final BoardHashtagService boardHashtagService;
 
 
     /*private Specification<Board> search(String kw) { //Sepecifation을 활용한 검색방법
@@ -57,7 +49,7 @@ public class BoardService {
 
     public Page<Board> getList(int page, String kw, String type) { //page:페이지  ,검색어
         List<Sort.Order> sorts = new ArrayList<>();
-        sorts.add(Sort.Order.desc("regDate"));//등록일 순 정렬
+            sorts.add(Sort.Order.desc("regDate"));
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
 
         /*Specification<Board> spec = search(kw); //검색방법 1.Specification
@@ -71,19 +63,30 @@ public class BoardService {
        }
     }
 
+    /*public Page<Board> getOrderList(int page, String order) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        if(order.equals("date"))
+            sorts.add(Sort.Order.desc("regDate"));//등록일 순 정렬
+        else{
+            sorts.add(Sort.Order.desc("author.size()"));
+        }
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+        return this.boardRepository.findAll(pageable);
+    }*/
+
 
     public List<Board> getAllList(){
         return this.boardRepository.findAll();
     }
 
 
-    public Page<Board> getCategoryList(int page, Integer categoryid) {
+   /* public Page<Board> getCategoryList(int page) {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("regDate"));
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
 
-        return this.boardRepository.findByCategoryId(pageable, categoryid);
-    }
+        return this.boardRepository.findByCategoryId(pageable);
+    }*/
 
 
     public Board getBoard(Integer id) {
@@ -97,15 +100,16 @@ public class BoardService {
     }
 
     @Transactional
-    public void create(String title, String content, SiteUser user, Category category) { //게시글 등록
+    public Long create(String title, String content, SiteUser user, BoardForm boardForm) { //게시글 등록
         Board b = new Board();
         b.setTitle(title);
         b.setContent(content);
         b.setRegDate(LocalDateTime.now());
         b.setAuthor(user);
-        b.setCategory(category);
         //b.setCategory(categoryName);
-        this.boardRepository.save(b);
+        Board savedBoard = boardRepository.save(b);
+        boardHashtagService.saveHashtag(savedBoard,boardForm.getTagNames());
+        return savedBoard.getId();
     }
 
     @Transactional
@@ -127,6 +131,7 @@ public class BoardService {
         board.getVoter().add(siteUser);
         this.boardRepository.save(board);
     }
+
 
 
 }

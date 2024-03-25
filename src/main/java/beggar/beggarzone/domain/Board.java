@@ -1,10 +1,8 @@
 package beggar.beggarzone.domain;
 
-import beggar.beggarzone.CommonUtil;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,9 +35,8 @@ public class Board {
     @ManyToMany(fetch = FetchType.LAZY)
     Set<SiteUser> voter;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="category_id")
-    private Category category;
+  @OneToMany(mappedBy = "board" ,cascade = CascadeType.ALL, orphanRemoval = true )
+   private  List<BoardHashtag> boardHashtags;
 
 
 

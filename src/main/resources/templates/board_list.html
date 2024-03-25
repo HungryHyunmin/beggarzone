@@ -2,24 +2,22 @@
 <div layout:fragment="content" class="container my-3" style="width:60%">
 
 
-    <a href="/board/list"><button  class="btn btn-primary"> 전체보기</button></a>
-    <a href="/board/list/1"><button  class="btn btn-primary"> 10대</button></a>
-    <a href="/board/list/2"><button class="btn btn-primary"> 20대</button></a>
-    <a href="/board/list/3"><button class="btn btn-primary"> 30대</button></a>
-    <a href="/board/list/4"><button class="btn btn-primary"> 40대</button></a>
-    <a href="/board/list/5"><button class="btn btn-primary"> 50대</button></a>
 
 
     <div class="row my-3">
         <div class="col-6">
             <a th:href="@{/board/create}" class="btn btn-success">글쓰기</a>
         </div>
+
+
+
+
         <div class="col-6">
             <div class="input-group">
                 <div class="type-box" style="width:30%;">
                 <select class="form-select" id="search_type" th:value="${type}">
                     <option value="ct">제목+내용</option>
-                    <option value=author>작성자</option>
+                    <option value="author">작성자</option>
                 </select>
             </div>
                 <input type="text" id="search_kw" class="form-control" th:value="${kw}">
@@ -109,8 +107,9 @@ btn_search.addEventListener('click', function() {
     document.getElementById('kw').value = document.getElementById('search_kw').value;
    document.getElementById('type').value = document.getElementById('search_type').value;
     document.getElementById('page').value = 0;  // 검색버튼을 클릭할 경우 0페이지부터 조회한다.
-
     document.getElementById('searchForm').submit();
 });
+
+
 </script>
 </html>

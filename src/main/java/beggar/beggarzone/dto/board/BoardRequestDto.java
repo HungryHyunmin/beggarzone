@@ -1,7 +1,7 @@
 package beggar.beggarzone.dto.board;
 
 import beggar.beggarzone.domain.Board;
-import beggar.beggarzone.domain.Category;
+
 import beggar.beggarzone.domain.Reply;
 import beggar.beggarzone.domain.SiteUser;
 import lombok.AllArgsConstructor;
@@ -27,6 +27,7 @@ public class BoardRequestDto {
 
 
 
+
     public BoardRequestDto(Board board) {
         id =board.getId();
         title=board.getTitle();
@@ -34,6 +35,7 @@ public class BoardRequestDto {
         content=board.getContent();
         regDate=board.getRegDate();
         modifyDate=board.getModifyDate();
+
         /*replyList=board.getReplyList(); 이코드를 사용할경우 reply 엔티티를 그대로 반환 하기때문에 좋지않음*/
         replyList =board.getReplyList().stream()
                 .map(reply -> new ReplyDto(reply))

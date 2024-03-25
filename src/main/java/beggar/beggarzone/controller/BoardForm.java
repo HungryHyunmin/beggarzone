@@ -1,16 +1,19 @@
 package beggar.beggarzone.controller;
 
-import beggar.beggarzone.domain.Category;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 
+
+@AllArgsConstructor
 @Getter @Setter
 public class BoardForm {
 
-    private Category category;
 
     @NotEmpty(message="제목은 필수 입니다.")
     @Size(max=200)
@@ -18,10 +21,11 @@ public class BoardForm {
     @NotEmpty(message = "내용은 필수 입니다.")
     private String content;
 
+
+    List<String> tagNames;
     @Override
     public String toString() {
         return "BoardForm{" +
-                "category=" + category +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 '}';

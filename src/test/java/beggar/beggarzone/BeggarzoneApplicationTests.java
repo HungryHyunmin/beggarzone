@@ -1,22 +1,21 @@
 package beggar.beggarzone;
 
+import beggar.beggarzone.controller.BoardForm;
 import beggar.beggarzone.domain.Board;
-import beggar.beggarzone.domain.Category;
+
 import beggar.beggarzone.domain.Reply;
 import beggar.beggarzone.domain.SiteUser;
 import beggar.beggarzone.repository.BoardRepository;
-import beggar.beggarzone.repository.CategoryRepository;
 import beggar.beggarzone.repository.ReplyRepository;
 import beggar.beggarzone.repository.UserRepository;
 import beggar.beggarzone.service.BoardService;
-import org.hibernate.dialect.SelectItemReferenceStrategy;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.cache.CacheType;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,8 +31,7 @@ class BeggarzoneApplicationTests {
 	UserRepository userRepository;
 	@Autowired
 	ReplyRepository replyRepository;
-	@Autowired
-	CategoryRepository categoryRepository;
+
 	@Autowired
 	BoardService boardService;
 
@@ -114,17 +112,20 @@ class BeggarzoneApplicationTests {
 
 	@Test
 	void 게시판넣기() {
-		Optional<Category> oc = this.categoryRepository.findById(1);
-		assertTrue(oc.isPresent());
-		Category c = oc.get();
 
-		Board b = new Board();
-		b.setCategory(c);
-		b.setTitle("카테고리 테스트");
-		b.setContent("카테고리 내용");
-		b.setRegDate(LocalDateTime.now());
-		b.setModifyDate(LocalDateTime.now());
+		List<String> list = Arrays.asList("10대","학생");
+
+		Board b= new Board();
+
+
+
+
+
+
+
 		this.boardRepository.save(b);
+
+
 	}
 
 	@Test
