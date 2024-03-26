@@ -2,7 +2,9 @@ package beggar.beggarzone.controller;
 
 import beggar.beggarzone.domain.Board;
 
+import beggar.beggarzone.domain.BoardHashtag;
 import beggar.beggarzone.domain.SiteUser;
+import beggar.beggarzone.service.BoardHashtagService;
 import beggar.beggarzone.service.BoardService;
 import beggar.beggarzone.service.UserService;
 import jakarta.validation.Valid;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.util.List;
 
 @RequestMapping("/board") //프리픽스
 @RequiredArgsConstructor
@@ -24,6 +27,7 @@ import java.security.Principal;
 public class BoardController {
     private final BoardService boardService;
     private final UserService userService;
+    private final BoardHashtagService boardHashtagService;
 
 
     @GetMapping("/list")
@@ -36,6 +40,7 @@ public class BoardController {
         model.addAttribute("paging",paging);
         model.addAttribute("kw",kw);
         model.addAttribute("type",type);
+
 
     return "board_list";
 }
@@ -58,6 +63,10 @@ public class BoardController {
         Board board = this.boardService.getBoard(id);
         System.out.println(board.toString());
         model.addAttribute("board",board);
+
+        List<BoardHashtag> hashtags = boardHashtagService.findHashtagListByBoard(board);
+        model.addAttribute("hashtags",hashtags);
+
         return "board_detail";
     }
 
@@ -77,7 +86,6 @@ public class BoardController {
         }
         System.out.println("보드폼 "+ boardForm.toString());
         SiteUser siteUser = this.userService.getUser(principal.getName());
-        /*Category category = this.categoryService.getCategory(boardForm.getCategory().getId());*/
         System.out.println("-siteUser : " + siteUser);
         this.boardService.create(boardForm.getTitle(),boardForm.getContent(),siteUser,boardForm);
 

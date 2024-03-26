@@ -32,7 +32,7 @@ public class BoardHashtagService {
         return boardHashtagRepository.save(new BoardHashtag(board, hashtag)).getId();
     }
 
-    public List<BoardHashtag> findHashtagListByQuestion(Board board) {
+    public List<BoardHashtag> findHashtagListByBoard(Board board) {
 
         return boardHashtagRepository.findAllByBoard(board);
     }

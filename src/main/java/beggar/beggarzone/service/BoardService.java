@@ -63,17 +63,6 @@ public class BoardService {
        }
     }
 
-    /*public Page<Board> getOrderList(int page, String order) {
-        List<Sort.Order> sorts = new ArrayList<>();
-        if(order.equals("date"))
-            sorts.add(Sort.Order.desc("regDate"));//등록일 순 정렬
-        else{
-            sorts.add(Sort.Order.desc("author.size()"));
-        }
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-        return this.boardRepository.findAll(pageable);
-    }*/
-
 
     public List<Board> getAllList(){
         return this.boardRepository.findAll();
