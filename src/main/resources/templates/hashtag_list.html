@@ -1,4 +1,9 @@
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content" class="container my-3" style="width:60%">
 
+    <tr class="text-center" th:each="list: ${list}">
+        <td th:text="${list.id}"></td>
+        <td th:text="${list.tagName}"></td>
+
+    <tr>
 </html>

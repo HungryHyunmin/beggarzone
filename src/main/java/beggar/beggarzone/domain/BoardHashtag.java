@@ -12,12 +12,13 @@ import lombok.NoArgsConstructor;
 public class BoardHashtag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
 
     @ManyToOne
     private  Board board;
+
     @ManyToOne
+    @JoinColumn(name ="HASHTAG_ID")
     private  Hashtag hashtag;
 
     public BoardHashtag(Board board, Hashtag hashtag) {

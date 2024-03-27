@@ -4,6 +4,7 @@ import beggar.beggarzone.domain.Board;
 import beggar.beggarzone.domain.BoardHashtag;
 import beggar.beggarzone.domain.Hashtag;
 import beggar.beggarzone.repository.BoardHashtagRepository;
+import beggar.beggarzone.repository.BoardHashtagQueryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ public class BoardHashtagService {
 
     private final HashtagService hashtagService;
     private final BoardHashtagRepository boardHashtagRepository;
+    private final BoardHashtagQueryRepository boardHashtagQueryRepository;
     public void saveHashtag(Board board, List<String> tagNames) {
 
         if(tagNames.size() == 0) return;
@@ -52,6 +54,9 @@ public class BoardHashtagService {
         return new PageImpl<>(boardList, pageable, boardList.size());
     }
 
+    /*public List<BoardHashtagQueryDto> findHashtagList(){
+        return boardHashtagQueryRepository.findHashtags();
+    }*/
 
 }
 

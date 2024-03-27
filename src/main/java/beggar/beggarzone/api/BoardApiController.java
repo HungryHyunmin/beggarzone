@@ -30,8 +30,5 @@ public class BoardApiController {
                         .collect(toList());
             return result;
     }
-    /*public List<Hashtag> findHashtag(){
-       hashtagService.findAll();
 
-    }*/
 }
