@@ -3,6 +3,7 @@ package beggar.beggarzone.controller;
 import beggar.beggarzone.domain.Board;
 
 import beggar.beggarzone.domain.BoardHashtag;
+import beggar.beggarzone.domain.Hashtag;
 import beggar.beggarzone.domain.SiteUser;
 import beggar.beggarzone.service.BoardHashtagService;
 import beggar.beggarzone.service.BoardService;
@@ -34,8 +35,11 @@ public class BoardController {
     public String list(Model model,
                        @RequestParam(value = "page", defaultValue = "0") int page,
                        @RequestParam(value = "kw",defaultValue = "") String kw,
-                       @RequestParam(value = "type",defaultValue = "") String type) {
-        Page<Board> paging = this.boardService.getList(page,kw,type);
+                       @RequestParam(value = "type",defaultValue = "") String type
+                       ) {
+
+
+        Page<Board> paging = this.boardService.getList(page, kw, type);
 
         model.addAttribute("paging",paging);
         model.addAttribute("kw",kw);
@@ -47,14 +51,14 @@ public class BoardController {
 
 
 
-    /*@GetMapping(value = "/list/{categoryId}") //카테고리
+    @GetMapping(value = "/list/{tagName}") //카테고리
     public String categoryList(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
-                               @PathVariable(name = "categoryId") Integer categoryId){
-        Page<Board> paging = this.boardService.getCategoryList(page,categoryId);
+                               @PathVariable(name = "tagName") String tagName){
+        Page<Board> paging = this.boardHashtagService.findAllByHashtag(page,tagName);
 
         model.addAttribute("paging",paging);
-        return "board_category";
-    }*/
+        return "board_hashtag";
+    }
 
 
 
@@ -136,5 +140,6 @@ public class BoardController {
         this.boardService.vote(board, siteUser);
         return String.format("redirect:/board/detail/%s", id);
     }
+
 
 }

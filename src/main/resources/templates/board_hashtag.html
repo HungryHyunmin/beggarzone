@@ -2,28 +2,15 @@
 <div layout:fragment="content" class="container my-3" style="width:60%">
 
 
-
-
     <div class="row my-3">
         <div class="col-6">
             <a th:href="@{/board/create}" class="btn btn-success">글쓰기</a>
         </div>
-        <div class="col-6">
-            <div class="input-group">
-                <div class="type-box" style="width:30%;">
-                <select class="form-select" id="search_type" th:value="${type}">
-                    <option value="ct">제목+내용</option>
-                    <option value="author">작성자</option>
-                </select>
-            </div>
-                <input type="text" id="search_kw" class="form-control" th:value="${kw}">
 
-                <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
-            </div>
-        </div>
+
     </div>
-<table class="table">
-    <thead class="table-dark">
+    <table class="table">
+        <thead class="table-dark">
         <tr class="text-center">
             <th>번호</th>
             <th style="width:50%">제목(해시태그)</th>
@@ -31,8 +18,8 @@
             <th>글쓴이</th>
             <th>작성일</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         <tr class="text-center" th:each="board, loop : ${paging}">
             <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
             <td class="text-start">
@@ -44,11 +31,7 @@
                       th:text="${#lists.size(board.replyList)}">
                 </span>
 
-                    <a style="float:right; background: #FFA500; border-radius:10px; margin-left:10px; "
-                       th:each="tag : ${board.boardHashtags}"
-                       th:href="@{|/board/list/${tag.hashtag.tagName}|}"
-                       th:if="${board.boardHashtags.size() != 0}"
-                       th:text="${'#' + tag.hashtag.tagName + ' '}"></a>
+                <span style="float:right; background: #FFA500; border-radius:10px; margin-left:10px; " th:each="tag : ${board.boardHashtags}" th:if="${board.boardHashtags.size() != 0}" th:text="${'#' + tag.hashtag.tagName + ' '}"></span>
 
             </td>
             <td><img src="/img/good.png" width="12" height="12">
@@ -57,7 +40,7 @@
             <td><span th:text="${#temporals.format(board.regDate, 'yyyy-MM-dd HH:mm')}"></span></td>
 
         </tr>
-    </tbody>
+        </tbody>
 
     </table>
     <!-- 페이징처리 시작 -->
@@ -83,29 +66,8 @@
         </ul>
     </div>
     <!-- 페이징처리 끝 -->
-    <form th:action="@{/board/list}" method="get" id="searchForm">
-        <input type="hidden" id="kw" name="kw" th:value="${kw}">
-        <input type="hidden" id=type name="type" th:value="${type}">
-        <input type="hidden" id="page" name="page" th:value="${paging.number}">
-    </form>
+
     <!--<a th:href="@{/board/create}" class="btn btn-primary">질문 등록하기</a>-->
 </div>
-<script layout:fragment="script" type='text/javascript'>
-const page_elements = document.getElementsByClassName("page-link");
-Array.from(page_elements).forEach(function(element) {
-    element.addEventListener('click', function() {
-        document.getElementById('page').value = this.dataset.page;
-        document.getElementById('searchForm').submit();
-    });
-});
-const btn_search = document.getElementById("btn_search");//찾기 누르면
-btn_search.addEventListener('click', function() {
-    document.getElementById('kw').value = document.getElementById('search_kw').value;
-   document.getElementById('type').value = document.getElementById('search_type').value;
-    document.getElementById('page').value = 0;  // 검색버튼을 클릭할 경우 0페이지부터 조회한다.
-    document.getElementById('searchForm').submit();
-});
 
-
-</script>
 </html>

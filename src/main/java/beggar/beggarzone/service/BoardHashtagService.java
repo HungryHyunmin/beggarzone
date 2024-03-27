@@ -5,9 +5,11 @@ import beggar.beggarzone.domain.BoardHashtag;
 import beggar.beggarzone.domain.Hashtag;
 import beggar.beggarzone.repository.BoardHashtagRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -36,5 +38,20 @@ public class BoardHashtagService {
 
         return boardHashtagRepository.findAllByBoard(board);
     }
+
+    public Page<Board> findAllByHashtag(int page, String hashtag) {
+        List<Sort.Order> sortsList = new ArrayList<>();
+        sortsList.add(Sort.Order.desc("regDate"));
+
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sortsList));
+        List<Board> boardList = boardHashtagRepository.findAllByHashtagTagName(hashtag)
+                .stream()
+                .map(BoardHashtag::getBoard)
+                .toList();
+
+        return new PageImpl<>(boardList, pageable, boardList.size());
+    }
+
+
 }
 
