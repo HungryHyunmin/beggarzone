@@ -91,7 +91,7 @@ public class BoardController {
         System.out.println("보드폼 "+ boardForm.toString());
         SiteUser siteUser = this.userService.getUser(principal.getName());
         System.out.println("-siteUser : " + siteUser);
-        this.boardService.create(boardForm.getTitle(),boardForm.getContent(),siteUser,boardForm);
+        this.boardService.create(siteUser,boardForm);
 
         return "redirect:/board/list"; //저장후 목록으로 이동
     }

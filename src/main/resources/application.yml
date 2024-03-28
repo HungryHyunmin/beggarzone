@@ -10,6 +10,7 @@ spring:
   suffix: .html
 
   jpa:
+    open-in-view: true
     hibernate:
       ddl-auto: update
     properties:
@@ -20,5 +21,8 @@ spring:
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
+
+server:
+  port: 8084
 
 

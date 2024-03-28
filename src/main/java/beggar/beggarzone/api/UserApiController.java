@@ -4,6 +4,7 @@ import beggar.beggarzone.domain.SiteUser;
 import beggar.beggarzone.dto.user.CreateUserResponseDto;
 
 import beggar.beggarzone.dto.user.UpdateUserResponseDto;
+import beggar.beggarzone.dto.user.UserDto;
 import beggar.beggarzone.dto.user.UserRequestDto;
 import beggar.beggarzone.service.UserService;
 import jakarta.validation.Valid;
@@ -26,7 +27,6 @@ private final UserService userService;
         user.setPassword(request.getPassword());
         user.setEmail(request.getEmail());
         SiteUser user1 = userService.create(user.getUsername(), user.getPassword(), user.getEmail());
-        Long id= user1.getId();
         return new CreateUserResponseDto(user1.getId()); //생성자에 따라 UserRepsonseDto 오버라이딩
     }
 
@@ -39,10 +39,10 @@ private final UserService userService;
     }
 
     @GetMapping("/api/v1/users")
-    public List<UserRequestDto> findUser(){
+    public List<UserDto> findUser(){
         List<SiteUser> userList = userService.findAll();
-       List<UserRequestDto> collect = userList.stream()
-                       .map(u-> new UserRequestDto(u.getId(),u.getUsername(),u.getPassword(),u.getEmail()))
+       List<UserDto> collect = userList.stream()
+                       .map(u-> new UserDto(u.getId(),u.getUsername(),u.getPassword(),u.getEmail()))
                         .collect(Collectors.toList());
        return collect;
     }

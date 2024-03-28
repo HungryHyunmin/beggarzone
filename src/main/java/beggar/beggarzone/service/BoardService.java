@@ -70,10 +70,10 @@ public class BoardService {
     }
 
     @Transactional
-    public Long create(String title, String content, SiteUser user, BoardForm boardForm) { //게시글 등록
+    public Long create(SiteUser user, BoardForm boardForm) { //게시글 등록
         Board b = new Board();
-        b.setTitle(title);
-        b.setContent(content);
+        b.setTitle(boardForm.getTitle());
+        b.setContent(boardForm.getContent());
         b.setRegDate(LocalDateTime.now());
         b.setAuthor(user);
         //b.setCategory(categoryName);
@@ -81,6 +81,9 @@ public class BoardService {
         boardHashtagService.saveHashtag(savedBoard,boardForm.getTagNames());
         return savedBoard.getId();
     }
+
+
+
 
     @Transactional
     public void modify(Board board, String title, String content) {
