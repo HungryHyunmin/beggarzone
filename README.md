@@ -21,6 +21,13 @@
 
 ### 어플리케이션
 - Java 17
-- Spring Framework(Spring MVC) 5.0.1
-- Mybatis
-- Maven
+- SpringBoot(3.2.2)
+- JPA
+- Gradle
+- MySQL
+
+<br>
+
+### 아키텍쳐
+
+![image](https://github.com/HungryHyunmin/beggarzone/assets/139208998/00f52cc5-b3ee-4e53-bf21-6bc3e4f85896)
