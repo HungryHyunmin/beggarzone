@@ -31,3 +31,10 @@
 ### 아키텍쳐
 
 ![image](https://github.com/HungryHyunmin/beggarzone/assets/139208998/00f52cc5-b3ee-4e53-bf21-6bc3e4f85896)
+
+<br>
+<br>
+
+### ERD
+
+![image](https://github.com/HungryHyunmin/beggarzone/assets/139208998/5aec3776-210b-4d60-ade5-3cf6218ec967)
