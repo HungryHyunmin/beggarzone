@@ -118,7 +118,7 @@ public class BoardController {
         if(!board.getAuthor().getUsername().equals(principal.getName())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"수정 권한이 없습니다.");
         }
-        this.boardService.modify(board,boardForm.getTitle(),boardForm.getContent());
+        this.boardService.modify(board,boardForm);
         return String.format("redirect:/board/detail/%s",id);
     }
     @PreAuthorize("isAuthenticated()")

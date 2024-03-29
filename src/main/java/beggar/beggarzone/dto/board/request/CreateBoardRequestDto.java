@@ -1,4 +1,4 @@
-package beggar.beggarzone.dto.board;
+package beggar.beggarzone.dto.board.request;
 
 import beggar.beggarzone.domain.Board;
 import beggar.beggarzone.domain.BoardHashtag;

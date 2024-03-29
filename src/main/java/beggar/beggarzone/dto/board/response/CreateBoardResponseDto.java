@@ -1,4 +1,4 @@
-package beggar.beggarzone.dto.board;
+package beggar.beggarzone.dto.board.response;
 
 
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package beggar.beggarzone.dto.user;
+package beggar.beggarzone.dto.user.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

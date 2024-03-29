@@ -1,15 +1,12 @@
-package beggar.beggarzone.dto.board;
+package beggar.beggarzone.dto.board.request;
 
-import beggar.beggarzone.domain.Board;
 import beggar.beggarzone.domain.Reply;
-import beggar.beggarzone.domain.SiteUser;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Data
-public class ReplyDto {
+public class BoardReplyDto {
 
     private Long id;
     private String content;
@@ -17,7 +14,7 @@ public class ReplyDto {
     private LocalDateTime modifyDate;
     private String replyUsername;
 
-    public ReplyDto(Reply reply){
+    public BoardReplyDto(Reply reply){
         id= reply.getId();
         content = reply.getContent();
         regDate = reply.getRegDate();

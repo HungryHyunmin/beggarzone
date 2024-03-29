@@ -86,12 +86,12 @@ public class BoardService {
 
 
     @Transactional
-    public void modify(Board board, String title, String content) {
-        board.setTitle(title);
-        board.setContent(content);
+    public void modify(Board board, BoardForm boardForm) {
+        board.setTitle(boardForm.getTitle());
+        board.setContent(boardForm.getContent());
         board.setModifyDate(LocalDateTime.now());
-        
         this.boardRepository.save(board);
+
     }
 
     @Transactional

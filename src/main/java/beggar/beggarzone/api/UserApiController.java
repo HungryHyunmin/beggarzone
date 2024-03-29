@@ -1,11 +1,11 @@
 package beggar.beggarzone.api;
 
 import beggar.beggarzone.domain.SiteUser;
-import beggar.beggarzone.dto.user.CreateUserResponseDto;
+import beggar.beggarzone.dto.user.response.CreateUserResponseDto;
 
-import beggar.beggarzone.dto.user.UpdateUserResponseDto;
+import beggar.beggarzone.dto.user.response.UpdateUserResponseDto;
 import beggar.beggarzone.dto.user.UserDto;
-import beggar.beggarzone.dto.user.UserRequestDto;
+import beggar.beggarzone.dto.user.request.UserRequestDto;
 import beggar.beggarzone.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -46,5 +46,6 @@ private final UserService userService;
                         .collect(Collectors.toList());
        return collect;
     }
+
 
 }
