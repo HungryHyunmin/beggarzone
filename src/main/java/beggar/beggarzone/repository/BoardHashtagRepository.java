@@ -14,5 +14,6 @@ public interface BoardHashtagRepository extends JpaRepository<BoardHashtag, Inte
 
     List<BoardHashtag> findAllByHashtagTagName(String hashtag);
 
+    List<BoardHashtag> findAllByHashtag(Hashtag hashtag);
 
 }

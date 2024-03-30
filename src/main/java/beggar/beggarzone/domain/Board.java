@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,10 +26,10 @@ public class Board {
 
     private LocalDateTime regDate;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Reply> replyList; // 다대일 양방향
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private SiteUser author; // 다대일 단방향
 
     private LocalDateTime modifyDate;
@@ -36,8 +37,8 @@ public class Board {
     @ManyToMany(fetch = FetchType.LAZY)
     Set<SiteUser> voter;
 
-  @OneToMany(mappedBy = "board" ,cascade = CascadeType.ALL, orphanRemoval = true )
-   private  List<BoardHashtag> boardHashtags = new ArrayList<>();
+  @OneToMany(mappedBy = "board" ,cascade = CascadeType.ALL, orphanRemoval = true , fetch = FetchType.LAZY )
+   private  Set<BoardHashtag> boardHashtags = new HashSet<>();
 
 
 

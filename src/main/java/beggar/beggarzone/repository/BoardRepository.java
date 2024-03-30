@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board,Integer> {
     Board findByTitle(String title);
@@ -40,4 +41,13 @@ public interface BoardRepository extends JpaRepository<Board,Integer> {
             + " u1.username like %:kw% "
             )
     Page<Board> findByKeywordAndAuthor(@Param("kw") String kw,Pageable pageable); //작성자
+
+    @Query("select distinct b from Board b" +
+            " join fetch b.author a" +
+            " join fetch b.replyList r"+
+            " join fetch b.boardHashtags bh "+
+            " join fetch bh.hashtag h "
+           )
+    Optional<Board> findById2(Long id);
+
 }

@@ -3,7 +3,9 @@ package beggar.beggarzone.service;
 import beggar.beggarzone.controller.BoardForm;
 import beggar.beggarzone.domain.*;
 import beggar.beggarzone.exception.DataNotFoundException;
+import beggar.beggarzone.repository.BoardHashtagRepository;
 import beggar.beggarzone.repository.BoardRepository;
+import beggar.beggarzone.repository.HashtagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +18,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -25,6 +29,8 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final BoardHashtagService boardHashtagService;
+    private final BoardHashtagRepository boardHashtagRepository;
+    private final HashtagRepository hashtagRepository;
 
 
 
@@ -59,8 +65,22 @@ public class BoardService {
     }*/
 
 
+    public Board getBoardv2(Integer id) {
+        /*Optional<Board> board = this.boardRepository.findById(id);*/
+
+        Optional<Board> board = this.boardRepository.findById2(Long.valueOf(id));
+        if (board.isPresent()) {
+            return board.get();
+        } else {
+            throw new DataNotFoundException("data not found");
+        }
+
+    }
+
     public Board getBoard(Integer id) {
         Optional<Board> board = this.boardRepository.findById(id);
+
+
         if (board.isPresent()) {
             return board.get();
         } else {
@@ -96,8 +116,20 @@ public class BoardService {
 
     @Transactional
     public void delete(Board board) {
+
         this.boardRepository.delete(board);
+        
+        for(BoardHashtag boardHashtag: board.getBoardHashtags() ) { // 해시태그가 포함된 게시물이 존재하지 않을경우 해시태그 삭제
+            List<BoardHashtag> list = boardHashtagRepository.findAllByHashtag(boardHashtag.getHashtag());
+            if(list.size()==0){
+                hashtagRepository.delete(boardHashtag.getHashtag());
+            }else{
+                System.out.println("존재하는 해시태그");
+            }
+        }
+
     }
+
 
     @Transactional
     public void vote(Board board, SiteUser siteUser) { // 좋아요 누른 사람 이름 저장

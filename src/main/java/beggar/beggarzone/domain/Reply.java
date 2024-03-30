@@ -20,10 +20,10 @@ public class Reply {
 
     private LocalDateTime regDate;
 
-    @ManyToOne //joincolum 사용안하면 디폴트 전략으로 외래키인 board_id 자동 지어
+    @ManyToOne(fetch = FetchType.LAZY) //joincolum 사용안하면 디폴트 전략으로 외래키인 board_id 자동 지어
     private Board board;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private SiteUser author;
 
     private LocalDateTime modifyDate;

@@ -38,7 +38,7 @@ public class BoardApiController {
     }
     @GetMapping("/api/v1/board/{boardId}")
     public BoardReponse getBoard(@PathVariable("boardId") Integer boardId){
-        Board board =boardService.getBoard(boardId);
+        Board board =boardService.getBoardv2(boardId);
         return new BoardReponse(board);
     }
 
@@ -58,7 +58,7 @@ public class BoardApiController {
     }
     @DeleteMapping("/api/v1/board/{boardId}")
     public DeleteBoardResponse deleteBoard(@PathVariable("boardId") Integer id){
-        Board b = boardService.getBoard(id);
+        Board b = boardService.getBoardv2(id);
         this.boardService.delete(b);
         return new DeleteBoardResponse(b.getId());
     }

@@ -8,6 +8,7 @@ import beggar.beggarzone.domain.SiteUser;
 import beggar.beggarzone.service.BoardHashtagService;
 import beggar.beggarzone.service.BoardService;
 import beggar.beggarzone.service.UserService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
