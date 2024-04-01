@@ -18,6 +18,7 @@ public class Hashtag {
 
     private String tagName;
 
+
     @OneToMany(mappedBy = "hashtag", cascade = CascadeType.ALL, orphanRemoval = true , fetch = FetchType.LAZY)
     private List<BoardHashtag> boardHashtags = new ArrayList<>();
 

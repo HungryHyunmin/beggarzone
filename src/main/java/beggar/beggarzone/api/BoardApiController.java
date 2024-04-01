@@ -13,6 +13,7 @@ import beggar.beggarzone.service.HashtagService;
 import beggar.beggarzone.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,19 +29,21 @@ public class BoardApiController {
     private final HashtagService hashtagService;
     private  final UserService userService;
 
-    @GetMapping("/api/v1/board") // 조회
-    public List<BoardReponse> getBoardList(){
-        List<Board> boards = boardService.getAllList();
+    @GetMapping("/api/v1/board") // 페이징 조회
+    public List<BoardReponse> getBoardList(@RequestParam(value = "page", defaultValue = "0") int page){
+        Page<Board> boards = boardService.getListV2(page);
       List<BoardReponse> result= boards.stream()
                 .map(b -> new BoardReponse(b))
                         .collect(toList());
             return result;
     }
-    @GetMapping("/api/v1/board/{boardId}")
+    @GetMapping("/api/v1/board/{boardId}")// 단건
     public BoardReponse getBoard(@PathVariable("boardId") Integer boardId){
-        Board board =boardService.getBoardv2(boardId);
+        Board board =boardService.getBoard(boardId);
         return new BoardReponse(board);
     }
+
+
 
     @PostMapping("/api/v1/{id}/board") //등록
     public CreateBoardResponseDto saveBoard(@PathVariable("id") Long id, @RequestBody @Valid BoardForm boardForm){
@@ -48,8 +51,8 @@ public class BoardApiController {
         Long boardId = boardService.create(user, boardForm);
         return new CreateBoardResponseDto(boardId);
     }
-    @PutMapping("/api/v1/{id}/board/{boardId}")
-    public UpdateBoardResponse updateBoard(@PathVariable("id") Integer id, @PathVariable("boardId") Integer boardId, @RequestBody @Valid BoardForm boardForm ){
+    @PutMapping("/api/v1/board/{boardId}")
+    public UpdateBoardResponse updateBoard(@PathVariable("boardId") Integer boardId, @RequestBody @Valid BoardForm boardForm ){
         Board b = boardService.getBoard(boardId);
         Long boardId2 = b.getId();
         this.boardService.modify(b,boardForm);
@@ -58,7 +61,7 @@ public class BoardApiController {
     }
     @DeleteMapping("/api/v1/board/{boardId}")
     public DeleteBoardResponse deleteBoard(@PathVariable("boardId") Integer id){
-        Board b = boardService.getBoardv2(id);
+        Board b = boardService.getBoard(id);
         this.boardService.delete(b);
         return new DeleteBoardResponse(b.getId());
     }

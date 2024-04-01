@@ -3,6 +3,7 @@ package beggar.beggarzone.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,8 +27,9 @@ public class Board {
 
     private LocalDateTime regDate;
 
+
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Reply> replyList; // 다대일 양방향
+    private List<Reply> replyList = new ArrayList<>(); // 다대일 양방향
 
     @ManyToOne(fetch = FetchType.LAZY)
     private SiteUser author; // 다대일 단방향
@@ -37,8 +39,9 @@ public class Board {
     @ManyToMany(fetch = FetchType.LAZY)
     Set<SiteUser> voter;
 
-  @OneToMany(mappedBy = "board" ,cascade = CascadeType.ALL, orphanRemoval = true , fetch = FetchType.LAZY )
-   private  Set<BoardHashtag> boardHashtags = new HashSet<>();
+
+    @OneToMany(mappedBy = "board" ,cascade = CascadeType.ALL, orphanRemoval = true , fetch = FetchType.LAZY )
+      private  List<BoardHashtag> boardHashtags = new ArrayList<>();
 
 
 
