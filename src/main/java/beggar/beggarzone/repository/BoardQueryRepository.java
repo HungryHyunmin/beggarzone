@@ -31,4 +31,5 @@ public interface BoardQueryRepository  extends JpaRepository<Board,Integer> {
     )
     Page<Board> findByKeywordAndAuthor(@Param("kw") String kw, Pageable pageable); //작성자
 
+
 }

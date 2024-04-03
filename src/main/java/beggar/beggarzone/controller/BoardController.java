@@ -50,8 +50,6 @@ public class BoardController {
     return "board_list";
 }
 
-
-
     @GetMapping(value = "/list/{tagName}") //카테고리
     public String categoryList(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
                                @PathVariable(name = "tagName") String tagName){
@@ -60,8 +58,6 @@ public class BoardController {
         model.addAttribute("paging",paging);
         return "board_hashtag";
     }
-
-
 
 @GetMapping(value="/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id, ReplyForm replyForm) {

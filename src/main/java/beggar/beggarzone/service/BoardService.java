@@ -40,6 +40,13 @@ public class BoardService {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         return boardQueryRepository.findAllWithAuthor(pageable);
     }
+    /*public Page<Board> getHashBoardList(int page, String tagName){
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("regDate"));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+        return boardHashtagRepository.findAllByHashtagTagName(pageable,tagName);
+    }*/
+
 
     public Page<Board> getList(int page, String kw, String type) { //page:페이지  ,검색어
         List<Sort.Order> sorts = new ArrayList<>();
@@ -56,6 +63,7 @@ public class BoardService {
            return this.boardRepository.findAll(pageable);
        }
     }
+
 
 
    /* public List<Board> getAllList(){
@@ -86,7 +94,6 @@ public class BoardService {
 
     public Board getBoard(Integer id) {
         Optional<Board> board = this.boardRepository.findById(id);
-
 
         if (board.isPresent()) {
             return board.get();
@@ -125,7 +132,6 @@ public class BoardService {
     public void delete(Board board) {
 
         this.boardRepository.delete(board);
-        
         for(BoardHashtag boardHashtag: board.getBoardHashtags() ) { // 해시태그가 포함된 게시물이 존재하지 않을경우 해시태그 삭제
             List<BoardHashtag> list = boardHashtagRepository.findAllByHashtag(boardHashtag.getHashtag());
             if(list.size()==0){

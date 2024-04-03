@@ -184,17 +184,19 @@ class BeggarzoneApplicationTests {
 	void 페이징데이터생성() {
 
 		SiteUser u = new SiteUser();
-		u.setUsername("길동님7");
-		u.setEmail("gusals5123@gmail.com");
-		u.setPassword("1234231234");
+		u.setUsername("길동님77");
+		u.setEmail("gusals25123@gmail.com");
+		u.setPassword("123423231234");
 		this.userRepository.save(u);
 
-
-		for (int i = 0; i <= 300; i++) {
+		for (int i = 0; i <= 20000; i++) {
 
 			String title = String.format("소비 내역 : [%03d일차]", i);
-			String content = "내용 없음";
-			this.boardService.create(title, content, u, null);
+			String content =  String.format("내용 : [%03d일차]", i);
+			BoardForm b = new BoardForm();
+			b.setTitle(title);
+			b.setContent(content);
+			this.boardService.create(u,b);
 		}
 	}
 

@@ -13,6 +13,7 @@ import java.util.Set;
 
 @Entity
 @Getter @Setter
+/*@Table(indexes = @Index(name = "idx_board_title",columnList = "title"))*/
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

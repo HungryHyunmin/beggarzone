@@ -4,6 +4,8 @@ import beggar.beggarzone.domain.Board;
 import beggar.beggarzone.domain.BoardHashtag;
 import beggar.beggarzone.domain.Hashtag;
 import jakarta.persistence.criteria.CriteriaBuilder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Collection;
@@ -15,5 +17,6 @@ public interface BoardHashtagRepository extends JpaRepository<BoardHashtag, Inte
     List<BoardHashtag> findAllByHashtagTagName(String hashtag);
 
     List<BoardHashtag> findAllByHashtag(Hashtag hashtag);
+
 
 }

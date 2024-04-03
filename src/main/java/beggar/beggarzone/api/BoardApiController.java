@@ -2,11 +2,14 @@ package beggar.beggarzone.api;
 
 import beggar.beggarzone.controller.BoardForm;
 import beggar.beggarzone.domain.Board;
+import beggar.beggarzone.domain.BoardHashtag;
+import beggar.beggarzone.domain.Hashtag;
 import beggar.beggarzone.domain.SiteUser;
 import beggar.beggarzone.dto.board.request.BoardReponse;
 import beggar.beggarzone.dto.board.response.CreateBoardResponseDto;
 import beggar.beggarzone.dto.board.response.DeleteBoardResponse;
 import beggar.beggarzone.dto.board.response.UpdateBoardResponse;
+import beggar.beggarzone.exception.DataNotFoundException;
 import beggar.beggarzone.service.BoardHashtagService;
 import beggar.beggarzone.service.BoardService;
 import beggar.beggarzone.service.HashtagService;
@@ -17,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -37,11 +41,23 @@ public class BoardApiController {
                         .collect(toList());
             return result;
     }
+ /*  @GetMapping("/api/v1/board/{tagName}")
+   public List<BoardReponse> getHashBoardList(@PathVariable("tagName") String tagName ,
+                                              @RequestParam(value = "page", defaultValue = "0") int page){
+
+       Page<BoardHashtag> boards =boardHashtagService.findAllByHashtag(page,tagName);
+       List<BoardReponse> result= boards.stream()
+               .map(b -> new BoardReponse(b.getBoard()))
+               .collect(toList());
+       return result;
+   }*/
+
     @GetMapping("/api/v1/board/{boardId}")// 단건
     public BoardReponse getBoard(@PathVariable("boardId") Integer boardId){
         Board board =boardService.getBoard(boardId);
         return new BoardReponse(board);
     }
+
 
 
 

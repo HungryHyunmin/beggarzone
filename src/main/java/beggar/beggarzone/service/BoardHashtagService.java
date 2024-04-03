@@ -24,7 +24,6 @@ public class BoardHashtagService {
     public void saveHashtag(Board board, List<String> tagNames) {
 
         if(tagNames.size() == 0) return;
-
         tagNames.stream()
                 .map(hashtag ->
                         hashtagService.findByTagName(hashtag)
