@@ -40,7 +40,8 @@
 
 ## 상세 내용
 
-[거지존.pdf](https://github.com/HungryHyunmin/beggarzone/files/14864829/default.pdf)
+## [거지존_상세내용.pdf](https://github.com/HungryHyunmin/beggarzone/files/14864965/_.pdf)
+
 
 
 
